@@ -4,11 +4,12 @@ public class RamblersState extends SearchState {
 	
 	//
 	private Coords Mycoords;
+	private int Myheight;
 	
 	//my constructor
-	public RamblersState(Coords MyCoords, Coords FnCoords) {
+	public RamblersState(Coords MyCoords, int height) {
 		Mycoords = MyCoords;
-		localCost = FnCoords;
+		Myheight = height;
 	}
 	
 	//the accessor
@@ -25,10 +26,20 @@ public class RamblersState extends SearchState {
 	public ArrayList<SearchState> getSuccessors(Search searcher){
 		RamblersSearch Mysearcher = (RamblersSearch) searcher;
 		Coords NextCD = Mysearcher.getMycoords();
+		
+		//make list for RamblersState and searchState
 		ArrayList<RamblersState> Rslist = new ArrayList<RamblersState>();
 		ArrayList<SearchState> Slist = new ArrayList<SearchState>();
 		
+		//find out the height and the height difference
+		int Myheight1 =Mycoords.gety() - Mycoords.getx();
+		int Myheight2 =NextCD.gety() - NextCD.getx();
+		int Hdiffer = Myheight2 - Myheight1;
 		
+		//find the right coords
+		if(Myheight2 <= Myheight3 )
+		
+		return Slist;
 	}
 	
 	  public boolean sameState(SearchState RS1) {
@@ -37,4 +48,7 @@ public class RamblersState extends SearchState {
 		  }
 	
 	
+	  public String toString() {
+		  return "Ramblers State:" +Mycoords;
+	  }
 }
