@@ -1,25 +1,20 @@
 import java.util.*;
 
 public class RamblersSearch extends Search {
-	private Coords Mycoords;
-	private Coords FinalCD;
-	private int Height;
+	private TerrainMap Mymap;
+	private Coords GoalCD;
 	
-	public Coords getMycoords() {
-		return Mycoords;
+	public TerrainMap getMymap() {
+		return Mymap;
 	}
 	
 	public Coords getFinalCD() {
-		return FinalCD;
+		return GoalCD;
 	}
 	
-	public int getHeight() {
-		return Height;
-	}
 	
-	public RamblersSearch(Coords Mycd, Coords Fncd, int height) {
-		Mycoords = Mycd;
-		FinalCD = Fncd;
-		Height = height;
+	public RamblersSearch(TerrainMap Map, Coords Glcd) {
+		Mymap = Map;
+		GoalCD = Glcd;
 	}
 }
