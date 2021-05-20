@@ -3,6 +3,7 @@ import java.util.*;
 public class RamblersSearch extends Search {
 	private Coords Mycoords;
 	private Coords FinalCD;
+	private int Height;
 	
 	public Coords getMycoords() {
 		return Mycoords;
@@ -12,8 +13,13 @@ public class RamblersSearch extends Search {
 		return FinalCD;
 	}
 	
-	public RamblersSearch(Coords Mycd, Coords Fncd) {
+	public int getHeight() {
+		return Height;
+	}
+	
+	public RamblersSearch(Coords Mycd, Coords Fncd, int height) {
 		Mycoords = Mycd;
 		FinalCD = Fncd;
+		Height = height;
 	}
 }
