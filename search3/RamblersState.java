@@ -37,7 +37,9 @@ public class RamblersState extends SearchState {
 		int Hdiffer = Myheight2 - Myheight1;
 		
 		//find the right coords
-		if(Myheight2 <= Myheight3 )
+		if(Myheight2 <= Myheight1) {
+			
+		}
 		
 		return Slist;
 	}
