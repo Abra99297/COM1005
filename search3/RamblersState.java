@@ -46,7 +46,7 @@ public class RamblersState extends SearchState {
 	
 	  public boolean sameState(SearchState RS1) {
 		  RamblersState Mysearcher1 = (RamblersState) RS1;
-		    return (Mycoords == Mysearcher1.getCoords());
+		    return (Mycoords == Mysearcher1.getcoords());
 		  }
 	
 	
