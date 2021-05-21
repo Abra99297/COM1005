@@ -3,16 +3,20 @@ import java.util.*;
 public class RamblersState extends SearchState {
 	
 	//
+	private TerrainMap Mymap;
 	private Coords Mycoords;
-	private int Myheight;
 	
 	//my constructor
-	public RamblersState(Coords MyCoords, int height) {
-		Mycoords = MyCoords;
-		Myheight = height;
+	public RamblersState(TerrainMap Map, Coords Coords) {
+		Mymap = Map;
+		Mycoords = Coords;
 	}
 	
 	//the accessor
+	public TerrainMap getThisMap() {
+		return Mymap;
+	}
+	
 	public Coords getCoords(){
 		return Mycoords;
 	}
@@ -25,7 +29,7 @@ public class RamblersState extends SearchState {
 	
 	public ArrayList<SearchState> getSuccessors(Search searcher){
 		RamblersSearch Mysearcher = (RamblersSearch) searcher;
-		Coords NextCD = Mysearcher.getMycoords();
+		Coords NextCD = Mysearcher.getFinalCD();
 		
 		//make list for RamblersState and searchState
 		ArrayList<RamblersState> Rslist = new ArrayList<RamblersState>();
@@ -46,7 +50,7 @@ public class RamblersState extends SearchState {
 	
 	  public boolean sameState(SearchState RS1) {
 		  RamblersState Mysearcher1 = (RamblersState) RS1;
-		    return (Mycoords == Mysearcher1.getcoords());
+		    return (Mycoords == Mysearcher1.getCoords());
 		  }
 	
 	
