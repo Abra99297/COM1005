@@ -12,9 +12,9 @@
 
 import java.util.*;
 
-public  class SearchNode {
+public  class SearchNode4 {
 
-  private SearchState state;
+  private SearchState4 state;
 
   //change from search2
   private int Cost;
@@ -22,7 +22,7 @@ public  class SearchNode {
   private int localCost;
   private int estRemCost; //A*
   private int estTotalCost; //A*
-  private SearchNode parent; // the parent node
+  private SearchNode4 parent; // the parent node
 
   /**
   * constructor
@@ -30,8 +30,8 @@ public  class SearchNode {
   * @param lc local cost of getting to this node from its predecessor
   * @param erc estimated remaining cost  */
 
-  public SearchNode(SearchState s, int lc, int erc) {
-    state= (SearchState) s;
+  public SearchNode4(SearchState4 s, int lc, int erc) {
+    state= (SearchState4) s;
     localCost=lc;  //change from search2
     estRemCost=erc;
   }
@@ -39,21 +39,21 @@ public  class SearchNode {
   /**
    * accessor for state
    */
-  public SearchState get_State() {
+  public SearchState4 get_State() {
     return state;
   }
 
   /**
    * accessor for parent
    */
-  public SearchNode getParent() {
+  public SearchNode4 getParent() {
     return parent;
   }
 
   /**
    * mutator for parent
    */
-  public void setParent(SearchNode n){ 
+  public void setParent(SearchNode4 n){ 
     parent = n;
   }
 
@@ -129,7 +129,7 @@ public  class SearchNode {
   * @param searcher the current search
   */
 
-  public  boolean goalPredicate(Search searcher) {
+  public  boolean goalPredicate(Search4 searcher) {
     return state.goalPredicate(searcher);
   }
 
@@ -140,12 +140,12 @@ public  class SearchNode {
   * @return ArrayList of successor nodes
   */
 
-  public ArrayList getSuccessors(Search searcher) {
-    ArrayList<SearchState> slis = state.getSuccessors(searcher);
-    ArrayList<SearchNode> nlis= new ArrayList<SearchNode>();
+  public ArrayList getSuccessors(Search4 searcher) {
+    ArrayList<SearchState4> slis = state.getSuccessors(searcher);
+    ArrayList<SearchNode4> nlis= new ArrayList<SearchNode4>();
 
-    for (SearchState suc_state:slis){
-         SearchNode n = new SearchNode(suc_state, suc_state.getLocalCost(), suc_state.getestRemCost());
+    for (SearchState4 suc_state:slis){
+         SearchNode4 n = new SearchNode4(suc_state, suc_state.getLocalCost(), suc_state.getestRemCost());
       nlis.add(n);
     }
     return nlis;
@@ -156,7 +156,7 @@ public  class SearchNode {
   * sameState - does another node have same state as this one?
   * @param n2 the other node
   */
-  public boolean sameState(SearchNode n2) {
+  public boolean sameState(SearchNode4 n2) {
     return state.sameState(n2.get_State());
   }
 

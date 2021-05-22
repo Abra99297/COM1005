@@ -4,11 +4,12 @@ public class RunMapSearch {
 	  
 	  //Make the map
 	  TerrainMap Mymap = new TerrainMap("tmc.pgm");
-	  Coords Mycoord = new Coords();
+	  Coords Glcoord = new Coords(10,8);
+	  Coords Fircoord = new Coords(4,6);
 	  
 	  //use the search and state
-	  RamblersSearch Mysearcher = new RamblersSearch(Mymap,);
-	  RamblersState MyState = (RamblersState) new RamblersState();
+	  RamblersSearch Mysearcher = new RamblersSearch(Mymap,Glcoord);
+
 	  
 	  //print out the search result
 	  String RRbb = Mysearcher.runSearch(MyState, "branchAndBound");

@@ -8,14 +8,14 @@
 
 import java.util.*;
 
-public abstract class Search {
+public abstract class Search4 {
 
-  protected SearchNode initNode; //initial node
-  protected SearchNode currentNode; // current node
-  protected SearchNode old_node; //node found on open with same state as new one
-  protected ArrayList<SearchNode> open;  //open - list of SearchNodes
-  protected ArrayList<SearchNode> closed; //closed - .......
-  protected ArrayList<SearchNode> successorNodes; //used in expand & vetSuccessors
+  protected SearchNode4 initNode; //initial node
+  protected SearchNode4 currentNode; // current node
+  protected SearchNode4 old_node; //node found on open with same state as new one
+  protected ArrayList<SearchNode4> open;  //open - list of SearchNodes
+  protected ArrayList<SearchNode4> closed; //closed - .......
+  protected ArrayList<SearchNode4> successorNodes; //used in expand & vetSuccessors
 
   /**
   * run a search
@@ -23,17 +23,17 @@ public abstract class Search {
   * @param strat - String specifying strategy
   * @return indication of success or failure
   */
-  public  String runSearch (SearchState initState, String strat) {
+  public  String runSearch (SearchState4 initState, String strat) {
 
-    initNode = new SearchNode(initState,0,0); // create initial node
+    initNode = new SearchNode4(initState,0,0); // create initial node
     initNode.setGlobalCost(0); //change from search2
 
 	  //change from search1 - print strategy
 	  System.out.println("Starting "+strat+" Search");
 
-	  open = new ArrayList<SearchNode>(); // initial open, closed
+	  open = new ArrayList<SearchNode4>(); // initial open, closed
 	  open.add(initNode);
-	  closed=new ArrayList<SearchNode>();
+	  closed=new ArrayList<SearchNode4>();
 
 	  int numIteration = 1;
 
@@ -43,7 +43,7 @@ public abstract class Search {
 	    System.out.println("-------------------------");
 	    System.out.println("iteration no " + numIteration);
 	    System.out.println("open is");
-	    for (SearchNode nn: open) {
+	    for (SearchNode4 nn: open) {
 	      String nodestr = nn.toString();
 		    System.out.println(nodestr);
 	    }
@@ -72,14 +72,14 @@ public abstract class Search {
   * @return indication of success or failure
   */
 
-  public  float runSearchE (SearchState initState, String strat) {
+  public  float runSearchE (SearchState4 initState, String strat) {
 
-    initNode = new SearchNode(initState,0,0); // create initial node
+    initNode = new SearchNode4(initState,0,0); // create initial node
     initNode.setGlobalCost(0); //change from search2
 
-  	open = new ArrayList<SearchNode>(); // initial open, closed
+  	open = new ArrayList<SearchNode4>(); // initial open, closed
   	open.add(initNode);
-	  closed = new ArrayList<SearchNode>();
+	  closed = new ArrayList<SearchNode4>();
 
   	int numIteration = 1;
 
@@ -108,7 +108,7 @@ public abstract class Search {
     // change from search2
     // set global costs and parents for successors
     // A* - set estTotalCost
-    for (SearchNode snode: successorNodes){
+    for (SearchNode4 snode: successorNodes){
       snode.setGlobalCost(currentNode.getGlobalCost()+ snode.getLocalCost());
       snode.setParent(currentNode);
       snode.setestTotalCost(snode.getGlobalCost()+snode.getestRemCost()); //A*
@@ -117,7 +117,7 @@ public abstract class Search {
 	  vetSuccessors(); //filter out unwanted - DP check
 
 	  //add surviving nodes to open
-	  for (SearchNode snode: successorNodes) open.add(snode);
+	  for (SearchNode4 snode: successorNodes) open.add(snode);
   }
 
 
@@ -125,9 +125,9 @@ public abstract class Search {
   // A* - can't ignore nodes already closed
 
 	private void vetSuccessors() {
-	  ArrayList<SearchNode> vslis = new ArrayList<SearchNode>();
+	  ArrayList<SearchNode4> vslis = new ArrayList<SearchNode4>();
 
-	  for (SearchNode snode: successorNodes){
+	  for (SearchNode4 snode: successorNodes){
       if (onOpen(snode)) { //on open - usual DP check
         if (snode.getGlobalCost()<old_node.getGlobalCost()) {
           old_node.setParent(snode.getParent()); //better route, modify node
@@ -155,11 +155,11 @@ public abstract class Search {
 
   //onClosed - is the state for a node the same as one on closed?
   //A* - if node found, remember it in old_node
-  private boolean onClosed(SearchNode newNode){
+  private boolean onClosed(SearchNode4 newNode){
 	  boolean ans = false;
 	  Iterator ic = closed.iterator();
     while ((ic.hasNext())&& !ans){ //there can only be one node on open with same state
-      SearchNode closedNode = (SearchNode) ic.next();
+      SearchNode4 closedNode = (SearchNode4) ic.next();
       if (newNode.sameState(closedNode)) {
         ans=true;
         old_node=closedNode;
@@ -170,12 +170,12 @@ public abstract class Search {
 
   //onOpen - is the state for a node the same as one on open?
   // if node found, remember it in old_node
-  private boolean onOpen(SearchNode newNode){
+  private boolean onOpen(SearchNode4 snode){
   	boolean ans = false;
     Iterator ic = open.iterator();
     while ((ic.hasNext())&& !ans){ //there can only be one node on open with same state
-      SearchNode openNode = (SearchNode) ic.next();
-      if (newNode.sameState(openNode)) {
+      SearchNode4 openNode = (SearchNode4) ic.next();
+      if (snode.sameState(openNode)) {
         ans=true;
         old_node=openNode;
       }
@@ -199,12 +199,12 @@ public abstract class Search {
 
     private void depthFirst () {
       int osize=open.size();
-		  currentNode= (SearchNode) open.get(osize-1); // last node added to open
+		  currentNode= (SearchNode4) open.get(osize-1); // last node added to open
 		  open.remove(osize-1); //remove it
     }
 
 	  private void breadthFirst(){
-		  currentNode= (SearchNode) open.get(0); //first node on open
+		  currentNode= (SearchNode4) open.get(0); //first node on open
 		  open.remove(0);
     }
 
@@ -212,9 +212,9 @@ public abstract class Search {
     private void branchAndBound(){
 
       Iterator i = open.iterator();
-      SearchNode minCostNode=(SearchNode) i.next();
+      SearchNode4 minCostNode=(SearchNode4) i.next();
       for (;i.hasNext();){
-        SearchNode n=(SearchNode) i.next();
+        SearchNode4 n=(SearchNode4) i.next();
         if (n.getGlobalCost()<minCostNode.getGlobalCost()){
           minCostNode=n;};
         }
@@ -228,9 +228,9 @@ public abstract class Search {
 	    private void AStar(){
 
         Iterator i = open.iterator();
-        SearchNode minCostNode=(SearchNode) i.next();
+        SearchNode4 minCostNode=(SearchNode4) i.next();
         for (;i.hasNext();){
-          SearchNode n=(SearchNode) i.next();
+          SearchNode4 n=(SearchNode4) i.next();
           if (n.getestTotalCost()<minCostNode.getestTotalCost()){
             minCostNode=n;};
           }
@@ -243,7 +243,7 @@ public abstract class Search {
     	// report success - reconstruct path, convert to string & return
       private String reportSuccess(){
 
-	    SearchNode n = currentNode;
+	    SearchNode4 n = currentNode;
 	    StringBuffer buf = new StringBuffer(n.toString());
 	    int plen=1;
 
@@ -265,7 +265,7 @@ public abstract class Search {
     // reportSuccess for runSearcE
     private float reportSuccessE(){
 
-    	SearchNode n = currentNode;
+    	SearchNode4 n = currentNode;
 	    int plen=1;
 
     	while (n.getParent() != null){
