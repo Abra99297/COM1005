@@ -7,9 +7,10 @@ public class RamblersState extends SearchState {
 	private String Myway;
 	
 	//my constructor
-	public RamblersState(Coords Coords, String Myway1) {
+	public RamblersState(Coords Coords, int lc, String Myway1) {
 		Mycoords = Coords;
 		Myway = Myway1;
+		this.localCost = lc; 
 	}
 
 	//accessor
@@ -37,14 +38,59 @@ public class RamblersState extends SearchState {
 		//find the position in the map
 		int Y1 = Mycoords.gety();
 		int X1 = Mycoords.getx();
+		int MyHeight = MyTnmp[Y1][X1];
 		
 		//make list for RamblersState and searchState
 		ArrayList<RamblersState> Rslist = new ArrayList<RamblersState>();
 		ArrayList<SearchState> Slist = new ArrayList<SearchState>();
 		
-		//find the right coords
+		//use the Rambler¡¯s costs function find the lc and the coords
+		if(Y1 > 0) {
+			int up = MyTnmp[Y1 -1][X1];
+			if (up <= MyHeight) {
+				Mylc = 1;
+				Slist.add(new RamblersState(new Coords(Y1-1,X1),Mylc,Myway));
+			}
+			else {
+				Mylc = 1 + up - MyHeight;
+				Slist.add(new RamblersState(new Coords(Y1-1,X1),Mylc,Myway));
+			}
+		}
+		if(X1 > 0) {
+			int left = MyTnmp[Y1][X1-1];
+			if ( left<= MyHeight) {
+				Mylc = 1;
+				Slist.add(new RamblersState(new Coords(Y1,X1-1),Mylc,Myway));
+			}
+			else {
+				Mylc = 1 + left - MyHeight;
+				Slist.add(new RamblersState(new Coords(Y1,X1-1),Mylc,Myway));
+			}
+		}
+		if(Y1-1 < MyDepth) {
+			int down = MyTnmp[Y1 +1][X1];
+			if (down <= MyHeight) {
+				Mylc = 1;
+				Slist.add(new RamblersState(new Coords(Y1+1,X1),Mylc,Myway));
+			}
+			else {
+				Mylc = 1 + down - MyHeight;
+				Slist.add(new RamblersState(new Coords(Y1+1,X1),Mylc,Myway));
+			}
+		}
+		if(X1-1 < MyWidth) {
+			int right = MyTnmp[Y1][X1+1];
+			if ( right<= MyHeight) {
+				Mylc = 1;
+				Slist.add(new RamblersState(new Coords(Y1,X1+1),Mylc,Myway));
+			}
+			else {
+				Mylc = 1 + right - MyHeight;
+				Slist.add(new RamblersState(new Coords(Y1,X1+1),Mylc,Myway));
+			}
+		}
 		
-		
+		//now return the ArrayList<SearchState> Slist
 		return Slist;
 	}
 	
@@ -53,11 +99,11 @@ public class RamblersState extends SearchState {
 		  Coords MyCoords2 = Mysearcher1.getCoords();
 		  int Y2 = MyCoords2.gety();
 		  int X2 = MyCoords2.getx();
-		  return (Mycoords.gety()==Y1 && Mycoords.getx()==X1);
+		  return (Mycoords.gety()==Y2 && Mycoords.getx()==X2);
 		  }
 	
 	
 	  public String toString() {
-		  return "Ramblers State:" + Mycoords.gety() + Mycoords.getx();
+		  return "Ramblers State:" + Mycoords.gety() +"," + Mycoords.getx();
 	  }
 }
