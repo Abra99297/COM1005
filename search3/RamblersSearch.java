@@ -8,7 +8,7 @@ public class RamblersSearch extends Search {
 		return Mymap;
 	}
 	
-	public Coords getFinalCD() {
+	public Coords getGoalCD() {
 		return GoalCD;
 	}
 	
