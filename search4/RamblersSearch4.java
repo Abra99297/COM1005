@@ -1,10 +1,10 @@
 import java.util.*;
 
-public class RamblersSearch4 extends Search {
-	private TerrainMap Mymap;
+public class RamblersSearch4 extends Search4 {
+	private TerrainMap4 Mymap;
 	private Coords GoalCD;
 	
-	public TerrainMap getMymap() {
+	public TerrainMap4 getMymap() {
 		return Mymap;
 	}
 	
@@ -13,7 +13,7 @@ public class RamblersSearch4 extends Search {
 	}
 	
 	
-	public RamblersSearch4(TerrainMap Map, Coords Glcd) {
+	public RamblersSearch4(TerrainMap4 Map, Coords Glcd) {
 		Mymap = Map;
 		GoalCD = Glcd;
 	}
