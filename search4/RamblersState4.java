@@ -6,13 +6,62 @@ public class RamblersState4 extends SearchState4 {
 	private Coords Mycoords;
 	private String Myway;
 	
-	//based on BB, A* need a 
-	public RamblersState4(Coords Coords, int lc, String Myway1) {
+	//based on BB, A* need a Estimated cost and 
+	public RamblersState4(Coords Coords, int Lc, int Ec) {
 		Mycoords = Coords;
-		Myway = Myway1;
-		this.localCost = lc; 
+		this.localCost = Lc;
+		this.estRemCost = Ec;
 	}
-	//
+	//the Manhattan Distance between the current pixel and the goal (p + q).
+	private int estBManD(int[][] Mytmap, Coords FirCD, Coords CoalCD) {
+		int y1 = FirCD.gety();
+		int x1 = FirCD.getx();
+		int y2 = CoalCD.gety();
+		int x2 = CoalCD.getx();
+		// make sure y and x difference >0
+		int yDiff = y1 - y2;
+		if(yDiff < 0) {
+			yDiff = yDiff * -1;
+		}
+		int xDiff = x1 - x2;
+		if(xDiff < 0) {
+			xDiff = xDiff * -1;
+		}
+		return yDiff + xDiff;
+	}
+	
+	//the Euclidean distance
+	private int estBEuc(int[][] Mytmap, Coords FirCD, Coords CoalCD) {
+		int y1 = FirCD.gety();
+		int x1 = FirCD.getx();
+		int y2 = CoalCD.gety();
+		int x2 = CoalCD.getx();
+		int y_2 = (y1 - y2)*(y1 - y2);
+		int x_2 = (x1 - x2)*(x1 - x2);
+		//int ans = sqrt(y_2 + x_2) / 1;
+		//return ans;
+		//why cant use the sqrt
+		return 0;
+	}
+	
+	//the height difference
+	private int estBHdiff(int[][] Mytmap, Coords FirCD, Coords CoalCD) {
+		int y1 = FirCD.gety();
+		int x1 = FirCD.getx();
+		int y2 = CoalCD.gety();
+		int x2 = CoalCD.getx();
+		
+		if(Mytmap[y2][x2] - Mytmap[y1][x1] > 0) {
+			return Mytmap[y2][x2] - Mytmap[y1][x1];
+		}
+		else {
+			return 0;
+		}
+
+	}
+	
+	//combinations of these
+
 
 	//accessor
 	public Coords getCoords(){
@@ -46,49 +95,49 @@ public class RamblersState4 extends SearchState4 {
 		ArrayList<SearchState4> Slist = new ArrayList<SearchState4>();
 		
 		//use the Rambler¡¯s costs function find the lc and the coords
-		//
+		//also we should think about the edges by use 0, width and depth
 		if(Y1 > 0) {
 			int up = MyTnmp[Y1 -1][X1];
 			if (up <= MyHeight) {
 				Mylc = 1;
-				Slist.add(new RamblersState4(new Coords(Y1-1,X1),Mylc,Myway));
+				Slist.add(new RamblersState4(new Coords(Y1-1,X1),Mylc, estBManD(MyTnmp, Mycoords, Mysearcher.getGoalCD())));
 			}
 			else {
 				Mylc = 1 + up - MyHeight;
-				Slist.add(new RamblersState4(new Coords(Y1-1,X1),Mylc,Myway));
+				Slist.add(new RamblersState4(new Coords(Y1-1,X1),Mylc, estBManD(MyTnmp, Mycoords, Mysearcher.getGoalCD())));
 			}
 		}
 		if(X1 > 0) {
 			int left = MyTnmp[Y1][X1-1];
 			if ( left<= MyHeight) {
 				Mylc = 1;
-				Slist.add(new RamblersState4(new Coords(Y1,X1-1),Mylc,Myway));
+				Slist.add(new RamblersState4(new Coords(Y1,X1-1),Mylc, estBManD(MyTnmp, Mycoords, Mysearcher.getGoalCD())));
 			}
 			else {
 				Mylc = 1 + left - MyHeight;
-				Slist.add(new RamblersState4(new Coords(Y1,X1-1),Mylc,Myway));
+				Slist.add(new RamblersState4(new Coords(Y1,X1-1),Mylc, estBManD(MyTnmp, Mycoords, Mysearcher.getGoalCD())));
 			}
 		}
-		if(Y1-1 < MyDepth) {
+		if(Y1 < MyDepth-1) {
 			int down = MyTnmp[Y1 +1][X1];
 			if (down <= MyHeight) {
 				Mylc = 1;
-				Slist.add(new RamblersState4(new Coords(Y1+1,X1),Mylc,Myway));
+				Slist.add(new RamblersState4(new Coords(Y1+1,X1),Mylc, estBManD(MyTnmp, Mycoords, Mysearcher.getGoalCD())));
 			}
 			else {
 				Mylc = 1 + down - MyHeight;
-				Slist.add(new RamblersState4(new Coords(Y1+1,X1),Mylc,Myway));
+				Slist.add(new RamblersState4(new Coords(Y1+1,X1),Mylc, estBManD(MyTnmp, Mycoords, Mysearcher.getGoalCD())));
 			}
 		}
-		if(X1-1 < MyWidth) {
+		if(X1 < MyWidth-1) {
 			int right = MyTnmp[Y1][X1+1];
 			if ( right<= MyHeight) {
 				Mylc = 1;
-				Slist.add(new RamblersState4(new Coords(Y1,X1+1),Mylc,Myway));
+				Slist.add(new RamblersState4(new Coords(Y1,X1+1),Mylc, estBManD(MyTnmp, Mycoords, Mysearcher.getGoalCD())));
 			}
 			else {
 				Mylc = 1 + right - MyHeight;
-				Slist.add(new RamblersState4(new Coords(Y1,X1+1),Mylc,Myway));
+				Slist.add(new RamblersState4(new Coords(Y1,X1+1),Mylc, estBManD(MyTnmp, Mycoords, Mysearcher.getGoalCD())));
 			}
 		}
 		
