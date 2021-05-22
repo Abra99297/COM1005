@@ -6,12 +6,13 @@ public class RamblersState4 extends SearchState4 {
 	private Coords Mycoords;
 	private String Myway;
 	
-	//my constructor
+	//based on BB, A* need a 
 	public RamblersState4(Coords Coords, int lc, String Myway1) {
 		Mycoords = Coords;
 		Myway = Myway1;
 		this.localCost = lc; 
 	}
+	//
 
 	//accessor
 	public Coords getCoords(){
@@ -45,6 +46,7 @@ public class RamblersState4 extends SearchState4 {
 		ArrayList<SearchState4> Slist = new ArrayList<SearchState4>();
 		
 		//use the Rambler¡¯s costs function find the lc and the coords
+		//
 		if(Y1 > 0) {
 			int up = MyTnmp[Y1 -1][X1];
 			if (up <= MyHeight) {
