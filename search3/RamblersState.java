@@ -4,12 +4,10 @@ public class RamblersState extends SearchState {
 	
 	//
 	private Coords Mycoords;
-	private String Myway;
 	
 	//my constructor
-	public RamblersState(Coords Coords, int lc, String Myway1) {
+	public RamblersState(Coords Coords, int lc) {
 		Mycoords = Coords;
-		Myway = Myway1;
 		this.localCost = lc; 
 	}
 
@@ -49,46 +47,47 @@ public class RamblersState extends SearchState {
 			int up = MyTnmp[Y1 -1][X1];
 			if (up <= MyHeight) {
 				Mylc = 1;
-				Slist.add(new RamblersState(new Coords(Y1-1,X1),Mylc,Myway));
+				Slist.add(new RamblersState(new Coords(Y1-1,X1),Mylc));
 			}
 			else {
 				Mylc = 1 + up - MyHeight;
-				Slist.add(new RamblersState(new Coords(Y1-1,X1),Mylc,Myway));
+				Slist.add(new RamblersState(new Coords(Y1-1,X1),Mylc));
 			}
 		}
 		if(X1 > 0) {
 			int left = MyTnmp[Y1][X1-1];
 			if ( left<= MyHeight) {
 				Mylc = 1;
-				Slist.add(new RamblersState(new Coords(Y1,X1-1),Mylc,Myway));
+				Slist.add(new RamblersState(new Coords(Y1,X1-1),Mylc));
 			}
 			else {
 				Mylc = 1 + left - MyHeight;
-				Slist.add(new RamblersState(new Coords(Y1,X1-1),Mylc,Myway));
+				Slist.add(new RamblersState(new Coords(Y1,X1-1),Mylc));
 			}
 		}
-		if(Y1-1 < MyDepth) {
+		if(Y1 < MyDepth-1) {
 			int down = MyTnmp[Y1 +1][X1];
 			if (down <= MyHeight) {
 				Mylc = 1;
-				Slist.add(new RamblersState(new Coords(Y1+1,X1),Mylc,Myway));
+				Slist.add(new RamblersState(new Coords(Y1+1,X1),Mylc));
 			}
 			else {
 				Mylc = 1 + down - MyHeight;
-				Slist.add(new RamblersState(new Coords(Y1+1,X1),Mylc,Myway));
+				Slist.add(new RamblersState(new Coords(Y1+1,X1),Mylc));
 			}
 		}
-		if(X1-1 < MyWidth) {
+		if(X1 < MyWidth-1) {
 			int right = MyTnmp[Y1][X1+1];
 			if ( right<= MyHeight) {
 				Mylc = 1;
-				Slist.add(new RamblersState(new Coords(Y1,X1+1),Mylc,Myway));
+				Slist.add(new RamblersState(new Coords(Y1,X1+1),Mylc));
 			}
 			else {
 				Mylc = 1 + right - MyHeight;
-				Slist.add(new RamblersState(new Coords(Y1,X1+1),Mylc,Myway));
+				Slist.add(new RamblersState(new Coords(Y1,X1+1),Mylc));
 			}
 		}
+
 		
 		//now return the ArrayList<SearchState> Slist
 		return Slist;
