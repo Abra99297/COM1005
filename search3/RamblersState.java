@@ -43,6 +43,7 @@ public class RamblersState extends SearchState {
 		ArrayList<SearchState> Slist = new ArrayList<SearchState>();
 		
 		//use the Rambler¡¯s costs function find the lc and the coords
+		//also we should think about the edges by use 0, width and depth
 		if(Y1 > 0) {
 			int up = MyTnmp[Y1 -1][X1];
 			if (up <= MyHeight) {
@@ -93,14 +94,14 @@ public class RamblersState extends SearchState {
 		return Slist;
 	}
 	
-	  public boolean sameState(SearchState RS1) {
+	//when they are ==
+	public boolean sameState(SearchState RS1) {
 		  RamblersState Mysearcher1 = (RamblersState) RS1;
 		  Coords MyCoords2 = Mysearcher1.getCoords();
 		  int Y2 = MyCoords2.gety();
 		  int X2 = MyCoords2.getx();
 		  return (Mycoords.gety()==Y2 && Mycoords.getx()==X2);
 		  }
-	
 	
 	  public String toString() {
 		  return "Ramblers State:" + Mycoords.gety() +"," + Mycoords.getx();
